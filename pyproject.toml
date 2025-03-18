@@ -1,0 +1,20 @@
+[project]
+name = "sherlock-mcp"
+version = "0.1.0"
+description = "Shelock Domains MCP server to buy & manage domains"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+ "mcp>=1.4.1",
+ "sherlock-domains>=0.1.5",
+]
+[[project.authors]]
+name = "Pol Alvarez"
+email = "pol.avms@gmail.com"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+sherlock-mcp = "sherlock_mcp:main"
