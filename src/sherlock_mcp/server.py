@@ -8,8 +8,17 @@ mcp = FastMCP("Fewsats MCP Server")
 
 
 def handle_response(response):
-    try: return response.status_code, response.json()
-    except: return response.status_code, response.text
+    """
+    Handle responses from Sherlock methods.
+    Sherlock methods already process the response using _handle_response,
+    which returns either a processed JSON object for successful requests or the response object itself.
+    """
+    if hasattr(response, 'status_code'):
+        # This is a raw response object
+        try: return response.status_code, response.json()
+        except: return response.status_code, response.text
+    # This is already processed data (like a dictionary)
+    return response
 
 
 @mcp.tool()
