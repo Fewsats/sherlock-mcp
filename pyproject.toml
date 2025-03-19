@@ -1,6 +1,6 @@
 [project]
 name = "sherlock-mcp"
-version = "0.1.2"
+version = "0.1.3"
 description = "Shelock Domains MCP server to buy & manage domains"
 readme = "README.md"
 requires-python = ">=3.10"

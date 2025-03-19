@@ -116,16 +116,9 @@ async def get_purchase_offers(sid: str, domain: str):
     sid: Search ID from a previous search request
     domain: Domain name to purchase from the search results related to `sid`
     """
-    response = Sherlock()._get_purchase_offers(sid, domain)
-    
-    # Process response to convert 'id' to 'offer_id' in the offers structure
-    if isinstance(response, dict) and 'offers' in response and isinstance(response['offers'], list):
-        for offer in response['offers']:
-            if 'id' in offer and 'offer_id' not in offer:
-                offer['offer_id'] = offer['id']
-                # Keep the original id for backward compatibility
-    
-    return handle_response(response)
+
+    return handle_response(Sherlock()._get_purchase_offers(sid, domain))
+
 
 
 @mcp.tool()

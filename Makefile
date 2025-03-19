@@ -28,10 +28,15 @@ sync-version:
 build: clean
 	uv build
 
-# 4. Test the release locally using the release wheel. I am not sure why the command `sherlock-mcp` can't be ommited here.
+# 4.a Test the release locally using the release wheel. I am not sure why the command `sherlock-mcp` can't be ommited here.
 run-release: build
-	uv tool run --with dist/sherlock_mcp-0.1.1-py3-none-any.whl sherlock-mcp
+	uv tool run --with dist/sherlock_mcp-0.1.3-py3-none-any.whl sherlock-mcp
+
+# 4.b Test the release from an MCP client using the path
+# NOTE this can still fail / use old version depending on uv envs, not sure how to fix it
+run-release-client: build
+	uv --directory /Users/pengren/go/github.com/Fewsats/sherlock-mcp run sherlock-mcp
 
 # 5. Release the package to PyPI
-release: build
+release: clean build
 	uv publish --token $(PYPI_TOKEN)
