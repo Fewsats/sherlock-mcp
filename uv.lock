@@ -384,21 +384,21 @@ wheels = [
 
 [[package]]
 name = "sherlock-domains"
-version = "0.1.5"
+version = "0.1.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cryptography" },
     { name = "fastcore" },
     { name = "httpx" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/76/a9/4e7cc07dde829d05055b0801d159de62e603299146bafee51bff3502621f/sherlock_domains-0.1.5.tar.gz", hash = "sha256:a6f2b003e13fb1aa5f6be1f3a0ffb9d9eab92809b57a4a6b2e56b7bff605be48", size = 20605 }
+sdist = { url = "https://files.pythonhosted.org/packages/80/f5/4acdde7ccd3e777db5f52715b08579e92297bfbc8603a22904695ae7160b/sherlock_domains-0.1.6.tar.gz", hash = "sha256:eaba9e08b517012e99d8484bfb2358a3c91728f61e0eb9b774693ce60907fa89", size = 20844 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c8/74/2d2cb74022a43f934d0c44157a31c48b047cd08fcb0f57ac3db09faa111c/sherlock_domains-0.1.5-py3-none-any.whl", hash = "sha256:6bf3078f0459fadcc57eca965368ba185f68229eabeeaf2d64aebc36fc46ceff", size = 17347 },
+    { url = "https://files.pythonhosted.org/packages/22/9e/dae035d8f303c2b26836d0c51d0679da7e2c3d1f685e3668f780dfaf4526/sherlock_domains-0.1.6-py3-none-any.whl", hash = "sha256:afdb6ef319f0b46e8aee1dc77faf376807cf2e3387a48b75b639b045455136e2", size = 17642 },
 ]
 
 [[package]]
 name = "sherlock-mcp"
-version = "0.1.3"
+version = "0.1.4"
 source = { editable = "." }
 dependencies = [
     { name = "mcp" },

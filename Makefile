@@ -25,7 +25,7 @@ clean:
 sync-version:
 	uv sync
 # 3. Build the package 
-build: clean
+build: clean sync-version
 	uv build
 
 # 4.a Test the release locally using the release wheel. I am not sure why the command `sherlock-mcp` can't be ommited here.

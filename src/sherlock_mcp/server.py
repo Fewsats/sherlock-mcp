@@ -3,8 +3,17 @@ from sherlock.core import Sherlock
 import os
 
 
-# Create FastMCP and Fewsats instances
+# Create FastMCP instance
 mcp = FastMCP("Fewsats MCP Server")
+
+
+def get_sherlock():
+    """Get or create a Sherlock instance. 
+    We want to create the class instance inside the tool, 
+    so the init errors will bubble up to the tool and hence the MCP client instead of silently failing
+    during the server creation.
+    """
+    return Sherlock()
 
 
 def handle_response(response):
@@ -38,7 +47,7 @@ async def search(q: str) -> str:
         - "this is a search" # no spaces
         - "sub.domain.com"   # no subdomains
     """
-    return handle_response(Sherlock()._search(q))
+    return handle_response(get_sherlock()._search(q))
 
 
 # @mcp.tool()
@@ -47,7 +56,7 @@ async def search(q: str) -> str:
 #     Makes an authenticated request to verify the current authentication status and retrieve basic user details.
 #     Returns user information including logged_in status, email, and the public key being used for authentication.
 #     """
-#     return handle_response(Sherlock().me())
+#     return handle_response(get_sherlock().me())
 
 
 @mcp.tool()
@@ -60,7 +69,7 @@ async def claim_account(email: str):
     - Each email can only be linked to one account
     - This method is rarely needed since emails are also set during domain registration
     """
-    return handle_response(Sherlock()._claim_account(email))
+    return handle_response(get_sherlock()._claim_account(email))
 
 
 @mcp.tool()
@@ -79,7 +88,7 @@ async def set_contact_information(cfn: str, cln: str, cem: str, cadd: str, cct: 
         postal_code: Postal code
         country: Two-letter country code ('US', 'ES', 'FR')
     """
-    return handle_response(Sherlock()._set_contact_information(cfn, cln, cem, cadd, cct, cst, cpc, ccn))
+    return handle_response(get_sherlock()._set_contact_information(cfn, cln, cem, cadd, cct, cst, cpc, ccn))
 
 
 @mcp.tool()
@@ -87,7 +96,7 @@ async def get_contact_information():
     """
     Retrieve the currently configured contact information that will be used for domain purchases and ICANN registration.
     """
-    return handle_response(Sherlock()._get_contact_information())
+    return handle_response(get_sherlock()._get_contact_information())
 
 
 @mcp.tool()
@@ -96,6 +105,7 @@ async def get_purchase_offers(sid: str, domain: str):
     Request available payment options for a domain.
     This method returns an L402 offer, which includes details such as offer_id, amount, currency, and more.
     The returned offer can be processed by any tool supporting L402 offers.
+    The TLD .ai mandates a minimum registration and renewal period of two years. So inform the user that they need to purchase a 2 year package when they request a .ai domain.
 
     The L402 offer structure:
     {
@@ -117,7 +127,7 @@ async def get_purchase_offers(sid: str, domain: str):
     domain: Domain name to purchase from the search results related to `sid`
     """
 
-    return handle_response(Sherlock()._get_purchase_offers(sid, domain))
+    return handle_response(get_sherlock()._get_purchase_offers(sid, domain))
 
 
 
@@ -136,7 +146,7 @@ async def domains():
         nameservers (list): List of nameserver hostnames
         status (str): Domain status (e.g. 'active')
     """
-    return handle_response(Sherlock()._domains())
+    return handle_response(get_sherlock()._domains())
 
 
 @mcp.tool()
@@ -152,7 +162,7 @@ async def dns_records(domain_id: str):
         value (str): DNS record value
         ttl (int): Time to live in seconds
     """
-    return handle_response(Sherlock()._dns_records(domain_id))
+    return handle_response(get_sherlock()._dns_records(domain_id))
 
 
 @mcp.tool()
@@ -166,7 +176,7 @@ async def create_dns(domain_id: str, type: str = "TXT", name: str = "test", valu
     value: Record value (e.g., IP address for A records, domain for CNAME)
     ttl: Time To Live in seconds (default: 3600)
     """
-    return handle_response(Sherlock()._create_dns_record(domain_id, type, name, value, ttl))
+    return handle_response(get_sherlock()._create_dns_record(domain_id, type, name, value, ttl))
 
 
 @mcp.tool()
@@ -182,7 +192,7 @@ async def update_dns(domain_id: str, record_id: str, type: str = "TXT", name: st
     value: New record value (e.g., IP address for A records)
     ttl: Time To Live in seconds (default: 3600)
     """
-    return handle_response(Sherlock()._update_dns_record(domain_id, record_id, type, name, value, ttl))
+    return handle_response(get_sherlock()._update_dns_record(domain_id, record_id, type, name, value, ttl))
 
 
 @mcp.tool()
@@ -193,7 +203,7 @@ async def delete_dns(domain_id: str, record_id: str):
     domain_id: Domain UUID (e.g., 'd1234567-89ab-cdef-0123-456789abcdef')
     record_id: DNS record ID to delete
     """
-    return handle_response(Sherlock()._delete_dns_record(domain_id, record_id))
+    return handle_response(get_sherlock()._delete_dns_record(domain_id, record_id))
 
 
 def main():
