@@ -1,4 +1,5 @@
 # sherlock-mcp MCP server
+[![smithery badge](https://smithery.ai/badge/@Fewsats/sherlock-mcp)](https://smithery.ai/server/@Fewsats/sherlock-mcp)
 
 Shelock Domains MCP server to buy & manage domains
 
@@ -67,6 +68,14 @@ On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
   }
   ```
 </details>
+
+### Installing via Smithery
+
+To install Shelock Domains Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@Fewsats/sherlock-mcp):
+
+```bash
+npx -y @smithery/cli install @Fewsats/sherlock-mcp --client claude
+```
 
 ## Development
 
