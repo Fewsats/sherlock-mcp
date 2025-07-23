@@ -2,6 +2,10 @@
 
 Shelock Domains MCP server to buy & manage domains
 
+<a href="https://glama.ai/mcp/servers/@Fewsats/sherlock-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@Fewsats/sherlock-mcp/badge" alt="Sherlock Domains MCP server" />
+</a>
+
 ## Components
 
 ### Resources
