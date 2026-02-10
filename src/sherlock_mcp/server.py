@@ -130,6 +130,50 @@ async def get_purchase_offers(sid: str, domain: str):
     return handle_response(get_sherlock()._get_purchase_offers(sid, domain))
 
 
+@mcp.tool()
+async def get_x402_purchase_offers(sid: str, domain: str):
+    """
+    Request X402 payment requirements for a domain purchase using USDC on Base.
+    Returns a 402 response with X402 PaymentRequired schema containing payment details.
+
+    The X402 payment structure:
+    {
+        'x402Version': 1,
+        'accepts': [
+            {
+                'scheme': 'exact',
+                'network': 'base',
+                'asset': '0x...',      # USDC contract address
+                'payTo': '0x...',      # Recipient address
+                'amount': '...',       # Amount in smallest unit
+                ...
+            }
+        ],
+        'resource': 'https://...'
+    }
+
+    Use the returned payment requirements to build a PAYMENT-SIGNATURE
+    (e.g. via the x402 Python library), then call purchase_x402 to complete.
+
+    sid: Search ID from a previous search request
+    domain: Domain name to purchase from the search results related to `sid`
+    """
+    return handle_response(get_sherlock()._get_x402_purchase_offers(sid, domain))
+
+
+@mcp.tool()
+async def purchase_x402(sid: str, domain: str, payment_signature: str):
+    """
+    Complete an X402 domain purchase with a pre-built payment signature.
+    Call get_x402_purchase_offers first to get the payment requirements,
+    then build the PAYMENT-SIGNATURE externally and pass it here.
+
+    sid: Search ID from a previous search request
+    domain: Domain name to purchase
+    payment_signature: The PAYMENT-SIGNATURE header value (built externally, e.g. via x402 library)
+    """
+    return handle_response(get_sherlock()._purchase_x402(sid, domain, payment_signature))
+
 
 @mcp.tool()
 async def domains():
